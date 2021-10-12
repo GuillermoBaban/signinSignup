@@ -1,5 +1,13 @@
 import React from "react";
-import { Button, Input, Flex, Text, Heading } from "@chakra-ui/react";
+import {
+  Button,
+  Input,
+  Flex,
+  Text,
+  Heading,
+  InputRightElement,
+  InputGroup,
+} from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import { UserContext } from "../context/user";
@@ -9,6 +17,7 @@ export function SignIn() {
   const [email, setEmail] = React.useState("");
   const [error, setError] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
+  const [showPass, setShowPass] = React.useState(false);
 
   const { setUser } = React.useContext(UserContext);
   const history = useHistory();
@@ -54,8 +63,22 @@ export function SignIn() {
     >
       <Text> Welcome to my page </Text>
       <Heading mb="2rem"> Signin </Heading>
-      <Input mb="1rem" placeholder="Email" onChange={handleEmail} />
-      <Input mb="1rem" placeholder="Password" onChange={handlePassword} />
+      <InputGroup size="md">
+        <Input mb="1rem" placeholder="Email" onChange={handleEmail} />
+      </InputGroup>
+      <InputGroup size="md">
+        <Input
+          mb="1rem"
+          placeholder="Password"
+          type={showPass ? "text" : "password"}
+          onChange={handlePassword}
+        />
+        <InputRightElement width="4.5rem">
+          <Button h="1.75rem" size="sm" onClick={() => setShowPass(!showPass)}>
+            {showPass ? "Hide" : "Show"}
+          </Button>
+        </InputRightElement>
+      </InputGroup>
       <Button
         colorScheme="teal"
         type="submit"
