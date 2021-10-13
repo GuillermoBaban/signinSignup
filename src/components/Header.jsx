@@ -1,7 +1,7 @@
 import React from "react";
 import { Flex, Button, Avatar, Text } from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
-import { UserContext } from "../context/user";
+// import { UserContext } from "../context/user";
 
 export const Header = () => {
   const history = useHistory();

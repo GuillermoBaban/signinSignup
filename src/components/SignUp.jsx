@@ -1,5 +1,13 @@
 import React from "react";
-import { Button, Input, Flex, Text, Heading } from "@chakra-ui/react";
+import {
+  Button,
+  Input,
+  Flex,
+  Text,
+  Heading,
+  InputRightElement,
+  InputGroup,
+} from "@chakra-ui/react";
 import { useHistory } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
@@ -10,12 +18,13 @@ export function SignUp() {
   const [password, setPassword] = React.useState("");
   const [errors, setErrors] = React.useState([]);
   const [loading, setLoading] = React.useState(false);
+  const [showPass, setShowPass] = React.useState(false);
 
   const history = useHistory();
   const { signup } = useAuth();
 
   const handleNavigateSignin = () => {
-    history.push("/signin");
+    history.push("/");
   };
 
   const handleSubmit = async (e) => {
@@ -43,10 +52,7 @@ export function SignUp() {
   const handleFirstName = (e) => setFirstName(e.target.value);
   const handleLastName = (e) => setLastName(e.target.value);
   const handleEmail = (e) => setEmail(e.target.value);
-  const handlePassword = (e) => {
-    setPassword(e.target.value);
-    console.log(password);
-  };
+  const handlePassword = (e) => setPassword(e.target.value);
 
   return (
     <Flex
@@ -66,7 +72,19 @@ export function SignUp() {
       <Input onChange={handleFirstName} mb="1rem" placeholder="First Name" />
       <Input onChange={handleLastName} mb="1rem" placeholder="Last Name" />
       <Input onChange={handleEmail} mb="1rem" placeholder="Email" />
-      <Input onChange={handlePassword} mb="1rem" placeholder="Password" />
+      <InputGroup size="md">
+        <Input
+          mb="1rem"
+          placeholder="Password"
+          type={showPass ? "text" : "password"}
+          onChange={handlePassword}
+        />
+        <InputRightElement width="4.5rem">
+          <Button h="1.75rem" size="sm" onClick={() => setShowPass(!showPass)}>
+            {showPass ? "Hide" : "Show"}
+          </Button>
+        </InputRightElement>
+      </InputGroup>
       {errors.map((e, i) => (
         <Text color="red.400" key={i}>
           {e}
