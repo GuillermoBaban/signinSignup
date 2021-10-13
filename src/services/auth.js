@@ -1,6 +1,7 @@
 import { sleep } from "../utils/sleep";
 
 export const doSignin = async (users, email, password) => {
+  let cumple = false;
   const storedUser = users.find((user) => user.email === email);
 
   if (!storedUser) {
@@ -8,11 +9,15 @@ export const doSignin = async (users, email, password) => {
   }
 
   const user = users.find((user) => {
-    return user.email === email && user.password === password;
+    if (user.email === email && user.password === password) {
+      localStorage.setItem("login", JSON.stringify(user));
+      return (cumple = true);
+    }
+    return cumple;
   });
 
   await sleep(1000);
-  if (!user) {
+  if (!cumple) {
     return Promise.reject("La contrasena es incorrecta");
   }
   //si llega aca se resuelve bien la promesa

@@ -5,9 +5,14 @@ import { UserContext } from "../context/user";
 
 export const Header = () => {
   const history = useHistory();
-  const { user } = React.useContext(UserContext);
+  //If i want to use useContext
+  // const { user } = React.useContext(UserContext);
+  // const name = user && `${user.firstName} ${user.lastName}`;
 
-  const name = user && `${user.firstName} ${user.lastName}`;
+  const userL = localStorage.getItem("login");
+  const userLParse = JSON.parse(userL);
+  const { firstName, lastName } = userLParse;
+  console.log(firstName, lastName);
 
   const handleNavigateHome = () => {
     history.push("/main");
@@ -34,7 +39,7 @@ export const Header = () => {
         variant="ghost"
         onClick={handleNavigateProfile}
       >
-        <Text mr="1rem">{name || "Profile"}</Text>
+        <Text mr="1rem">{`${firstName} ${lastName}`}</Text>
         <Avatar
           size="xs"
           name="Dan Abrahmov"

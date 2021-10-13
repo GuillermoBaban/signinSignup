@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Home, Profile, Header, SignIn, SignUp, Layout } from "./";
 import { UserContext } from "../context/user";
 import { Spacer } from "@chakra-ui/react";
-
 export const App = () => {
   const [user, setUser] = React.useState(null);
   return (
